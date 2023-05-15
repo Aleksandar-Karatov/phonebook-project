@@ -1,0 +1,43 @@
+query{
+  contact(name: "Boyanna", phone:"123-456-7890", email:"boyanna@gmail.com"){
+    name
+    phones
+    email
+  }
+}
+
+mutation{
+  createContact(id: "5", name: "Test Input", phones: ["0123-445-223"], notes:"mega gotin test", email: "randomMail@mail.bg"){
+    id
+    name
+    notes
+    phones
+    email
+    
+  }
+  
+}
+
+mutation{
+  updateContact(id: "5",name: "Test Input", phones: ["111-000-11"], notes:"mega gotin test", email: "randomMailAmaNov@mail.bg"){
+    name
+    notes
+    phones
+    email
+    
+  }
+  
+}
+
+
+mutation{
+  deleteContact(email:"randomMail@mail.bg")
+}
+
+
+
+query{
+  contacts{
+    name, id, email, phones 
+  }
+}
