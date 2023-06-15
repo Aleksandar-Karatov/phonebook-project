@@ -4,17 +4,27 @@ type Contact {
   phones: [String!]
   notes: String
   email: String!
+  imageID: String!
+}
 
+type Image{
+  imageId: String!
+  name: String!
+  imageData: String!
+  contentType: String!
 }
 
 type Query {
   contacts: [Contact!]!
-  contact(id: String, name: String, phone: String, email: String): Contact
+  contact(name: String, phone: String, email: String, id: String): Contact
+  image(imageID: String!): Image!
+  search(filter: String!): [Contact!]!
 }
 
 type Mutation {
-  createContact(id: String! ,name: String!, phones: [String!], notes: String,  email: String!): Contact!
-  mergeContacts(email_one: String!, email_two: String!): Contact!
-  updateContact(id: String!, name: String!, phones: [String!], email: String!, notes: String!): Contact!
-  deleteContact(email: String!): Boolean!
+  createContact(name: String!, phones: [String!], notes: String,  email: String!): Contact!
+  mergeContacts(id: String!): Contact!
+  updateContact(id: String!,name: String!, phones: [String!], email: String!, notes: String!): Contact!
+  deleteContact(id: String!): Boolean!
+  updateContactPicture(userId: String!, imageId: String!, name: String!, imageData: String!, contentType: String!): Image!
 }

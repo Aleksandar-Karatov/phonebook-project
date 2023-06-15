@@ -3,9 +3,17 @@
 package model
 
 type Contact struct {
-	ID     string   `json:"id"`
-	Name   string   `json:"name"`
-	Phones []string `json:"phones,omitempty"`
-	Notes  *string  `json:"notes,omitempty"`
-	Email  string   `json:"email"`
+	ID      string   `json:"id"`
+	Name    string   `json:"name"`
+	Phones  []string `json:"phones,omitempty"`
+	Notes   *string  `json:"notes,omitempty"`
+	Email   string   `json:"email"`
+	ImageID string   `json:"imageID"`
+}
+
+type Image struct {
+	ImageID     string `json:"imageId"`
+	Name        string `json:"name"`
+	ImageData   string `json:"imageData"`
+	ContentType string `json:"contentType"`
 }

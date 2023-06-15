@@ -32,8 +32,7 @@ func main() {
 	}
 	defer client.Disconnect(ctx)
 
-	quickstartDatabase := client.Database("test")
-	phonebookCollection := quickstartDatabase.Collection("phonebooks")
+	phonebookDatabase := client.Database("test")
 
 	// create a GraphQL api
 	port := os.Getenv("PORT")
@@ -41,7 +40,7 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{Ctx: ctx, Collection: phonebookCollection}}))
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{Ctx: ctx, Database: phonebookDatabase}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
