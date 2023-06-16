@@ -161,7 +161,7 @@ func (r *queryResolver) Search(ctx context.Context, filter string) ([]*model.Con
 	var out []*model.Contact
 
 	for _, contact := range resp {
-		out = append(out, &model.Contact{ID: contact.Id.Hex(), Name: contact.Name, Phones: contact.Phones, Notes: &contact.Notes, Email: contact.Email, ImageID: contact.Id.Hex()})
+		out = append(out, &model.Contact{ID: contact.Id.Hex(), Name: contact.Name, Phones: contact.Phones, Notes: &contact.Notes, Email: contact.Email, ImageID: contact.ImageID.Hex()})
 	}
 
 	return out, nil

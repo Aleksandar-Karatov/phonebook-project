@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Repo struct {
@@ -111,7 +112,7 @@ func (r *Repo) CreateContact(contact models.Contact) (*models.Contact, error) {
 	if err == nil {
 		return nil, ErrAlreadyExists
 	}
-	contact.ImageID = contact.Id
+	contact.ImageID, _ = primitive.ObjectIDFromHex(config.DEFAULT_IMAGE_ID)
 	_, err = r.Database.Collection(config.DB_COLLECTION_USERS).InsertOne(r.Ctx, contact)
 	if err != nil {
 		return nil, err
@@ -263,13 +264,17 @@ func (r *Repo) Search(filterStr string) ([]*models.Contact, error) {
 
 func (r *Repo) predictiveSearch(filterStr, fieldName string) []*models.Contact {
 	var contacts []*models.Contact
-	filter := bson.D{{fieldName, primitive.Regex{Pattern: filterStr, Options: ""}}}
+	findOptions := options.Find()
+
+	findOptions.SetSort(bson.D{{fieldName, 1}})
+	findOptions.SetLimit(10)
+	filter := bson.D{{fieldName, primitive.Regex{Pattern: filterStr, Options: "i"}}}
 	if fieldName == "phoneNumbers" {
 		filter = bson.D{
 			{fieldName, bson.D{{"$all", bson.A{primitive.Regex{Pattern: filterStr, Options: ""}}}}},
 		}
 	}
-	cur, err := r.Database.Collection(config.DB_COLLECTION_USERS).Find(r.Ctx, filter)
+	cur, err := r.Database.Collection(config.DB_COLLECTION_USERS).Find(r.Ctx, filter, findOptions)
 	if err != nil {
 		return nil
 	}
