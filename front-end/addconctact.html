@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new contact</title>
+    <link rel="stylesheet" href="./styles/style.css" > 
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="addNewContact">
+    <form action="/submit-form" method="post">
+        <div class="user">
+            <div class="input">
+                <span class="detail">Name:</span>
+                <input type="text" id="firstname" name="firstname">
+            </div>
+            <div class="input">
+                <span class="detail">Surname:</span>
+                <input type="text" id="lastname" name="lastname">
+            </div>
+            <div class="input">
+                <span class="detail">Address:</span>
+                <input type="text" id="address" name="address">
+            </div>
+            <div class="input">
+                <span class="detail">E-mail:</span>
+                <input type="text" id="email" name="email">
+            </div>
+            <div class="input">
+                <span class="detail">Phone number:</span>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <div class="upload">
+                <span class="detail">Upload photo:</span>
+                <input type="file" name="uploaded_file">
+            </div>
+            <div class="button">
+                <input type="submit" value="Add">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
