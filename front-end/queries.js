@@ -28,7 +28,7 @@ query search{
   }
 `;
 
-export var image = `
+ export var image = `
 query image{
     image(imageID:"$imageID"){
       imageId

@@ -7,6 +7,7 @@ package graph
 import (
 	"context"
 	"errors"
+	"log"
 
 	"github.com/phonebook-project/graph/model"
 	"github.com/phonebook-project/models"
@@ -116,7 +117,7 @@ func (r *queryResolver) Contacts(ctx context.Context) ([]*model.Contact, error) 
 	for _, contact := range resp {
 		out = append(out, &model.Contact{ID: contact.Id.Hex(), Name: contact.Name, Phones: contact.Phones, Notes: &contact.Notes, Email: contact.Email, ImageID: contact.ImageID.Hex()})
 	}
-
+	log.Println("CALLED CONTACTS")
 	return out, nil
 }
 
@@ -149,6 +150,7 @@ func (r *queryResolver) Image(ctx context.Context, imageID string) (*model.Image
 	if err != nil {
 		return nil, err
 	}
+	log.Println("CALLED IMAGE")
 	return &model.Image{ImageID: output.Id.Hex(), Name: output.Name, ContentType: output.ContentType, ImageData: string(output.Data)}, nil
 }
 
