@@ -10,35 +10,41 @@
 <body>
 
     <div class="contact">
-
+        
         <div class="personalInfo">
-            <img >
+            
+            <img src="data:<%=contactData.imageContentType%>;base64,<%=contactData.imageData%>"/>
         
             <div class = "name">
-                <p id="firstName">  </p>
-                <p id="lastName">  </p>
+                <p id="firstName"> <%= contactData.name %> </p>
+
             </div>
         </div>
 
             <div class = "phoneNumber">
                 <img src = "images/phone-call.png">
-                <p id="number">  </p>
+                <p id="number"><%= contactData.phones %>  </p>
             </div>
 
             <div class="email">
                 <img src="./images/envelope.png">
-                <p id="email">  </p>
+                <p id="email"> <%= contactData.email %> </p>
             </div>
             
             <div class="notes">
-                <img src="./images/home (1).png">
-                <p id="notes">  </p>
+                <img src="./images/note_120061.png">
+                <p id="notes"> <%= contactData.notes %> </p>
             </div>
 
         
         <div class = "buttons">
-            <button class="removeContact"> Delete </button>
-            <button class="mergeContact"> Merge </button>
+            <a  href="/contactdelete?contactid=<%= contactData.contactid %>">
+                <input class="removeContact" type="button" value="Delete" />
+             </a>
+             <a  href="/contactmerge?contactid=<%= contactData.contactid %>">
+                <input class="mergeContact" type="button" value="Merge" />
+             </a>
+
         </div>
 
     </div>

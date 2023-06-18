@@ -2,58 +2,20 @@
 // const fetch = require('node-fetch');
 import express from 'express';
 import fetch from 'node-fetch';
+import url from 'url';
+import parser from 'body-parser';
 
 // const { fetchContacts } = require('../queries');
 
 const app = express();
 const port = 3000;
+app.use(parser.urlencoded({ extended: false }))
+app.use(parser.json())
 
-
-// Define the HTML template
-const mainTemplate = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone book</title>
-    <link rel="stylesheet" href="./styles/style.css" > 
-    <script src="index.js"></script>
-</head>
-<body>
-      
-<div class = "container" >
-    <img src="images/istockphoto-1312128591-612x612.jpg">
-    
-    <div class = "nav">
-    <div class= "search">
-        <input id = "searchContact" placeholder = "Search">
-        <button class = "searchContact"> SEARCH </button>
-    </div>
-    <button class ="addContact"> ADD NEW CONTACT</button>
-    </div>
-    <div class = "menu" >
-    <h1> CONTACTS </h1>
-    <ul> 
-        <li>
-    <div id = "contactInfo"> 
-    <% contacts.forEach(function(contact) { %>
-      <span>Name: <%= contact.name %></span><br>
-      <br>
-  <% }); %>
-    </div>
-</li>
-</ul>
-   </div>
-</div>
-
-</body>
-</html>
-`;
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
-// Serve the HTML template
+
+//main page
 app.get('/', (req, res) => {
   var query = `query {
       contacts() {
@@ -64,6 +26,8 @@ app.get('/', (req, res) => {
 fetchContactsData(query, res)
  
 });
+
+//contact page
 app.get('/contact', (req, res) => {
   var query = `
   query {
@@ -83,8 +47,54 @@ fetchContactData(query, res)
 
 
 
+app.get('/contactdelete', (req, res) => {
+  var query = `
+  mutation{
+    deleteContact(id: "`+ req.query.contactid+ `")
+  }
+` ;
+
+  console.log(query);
+  deleteContact(query, res);
+  
+ 
+});
+
+app.get('/contactmerge', (req, res) => {
+  var query = `
+  mutation merge{
+      mergeContacts(id: "`+ req.query.contactid+ `"){
+        id
+      }
+    }
+  `;
+
+  console.log(query);
+  mergeContacts(query, res);
+  
+ 
+});
+
+app.get('/createcontactpage', (req, res) => {
+  
+  res.render('addcontact');
+});
 
 
+app.post('/submit-contactinfo', function(req, res) {
+  console.log(req.body);
+  var query = `
+  mutation {
+      createContact(name: "` + req.body.name + `", phones: ["` + req.body.phone + `"], notes: "` + req.body.notes + `", email: "` + req.body.email + `"){
+        id
+      }
+    }
+  `;
+  console.log(query);
+  createContact(res, query);
+
+  res.redirect("/");
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
@@ -124,21 +134,21 @@ async function fetchContactData(query, res) {
   });
 
   const data = await response.json();
-  console.log(data.data);
   var cont = data.data.contact;
-  var base64image = fetchImage(data.data.contact.imageID.toString());
-
-  
+  var image = await fetchImage(cont.imageID.toString());
 
   const contactData ={
+    contactid: cont.id ,
     name: cont.name,
     phones : cont.phones,
     email : cont.email,
     notes: cont.notes,
-    image : base64image
+    imageData: image.imageData,
+    imageContentType: image.contentType
   }
   
   res.render('index',{contactData});
+   
   
 }
 
@@ -162,6 +172,63 @@ async function fetchImage(imageID){
   });
 
   const data = await response.json();
-  const base64Image = Buffer.from(data.data.image.imageData).toString('base64');
-  return base64Image
+ const imageData = {
+    contentType : data.data.image.contentType,
+    imageData: data.data.image.imageData,
+    name: data.data.image.name
+ };
+ return imageData;
+}
+
+
+async function deleteContact(query, res) {
+  const response = await fetch("http://localhost:50000/query", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+  res.redirect("/");
+  
+}
+
+
+async function mergeContacts(query, res) {
+  const response = await fetch("http://localhost:50000/query", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+  res.redirect(url.format({
+    pathname:"/contact",
+    query: {
+       "contactid": data.data.mergeContacts.id
+     }
+  }));
+  
+}
+
+
+async function createContact(res, query) {
+  const response = await fetch("http://localhost:50000/query", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+ 
+  
 }

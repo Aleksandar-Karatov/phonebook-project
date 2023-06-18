@@ -8,12 +8,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: fit-content;
+    height: 100vh;
     background-color: #f3f3f3;
   }
   
   .container {
     display: flex;
+    height: fit-content;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -202,7 +203,7 @@ body {
   }
   
   .email,
-  .address,
+  .notes,
   .phoneNumber {
     background-color: #fff;
     width: 400px;
@@ -213,7 +214,7 @@ body {
   }
   
   .email img,
-  .address img,
+  .notes img,
   .phoneNumber img {
     width: 30px;
     height: 30px;

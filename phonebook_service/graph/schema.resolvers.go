@@ -6,6 +6,7 @@ package graph
 
 import (
 	"context"
+	"encoding/base64"
 	"errors"
 	"log"
 
@@ -151,7 +152,8 @@ func (r *queryResolver) Image(ctx context.Context, imageID string) (*model.Image
 		return nil, err
 	}
 	log.Println("CALLED IMAGE")
-	return &model.Image{ImageID: output.Id.Hex(), Name: output.Name, ContentType: output.ContentType, ImageData: string(output.Data)}, nil
+
+	return &model.Image{ImageID: output.Id.Hex(), Name: output.Name, ContentType: output.ContentType, ImageData: base64.StdEncoding.EncodeToString(output.Data)}, nil
 }
 
 // Search is the resolver for the search field.

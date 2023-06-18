@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     function validateForm() {
       const firstname = document.getElementById('firstname').value;
-      const lastname = document.getElementById('lastname').value;
+
       const address = document.getElementById('address').value;
       const email = document.getElementById('email').value;
       const phone = document.getElementById('phone').value;
@@ -33,15 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         document.getElementById('firstname').classList.remove('error');
       }
-  
-      //lastname
-      if (lastname.trim() === '') {
-        document.getElementById('lastname').classList.add('error');
-        isValid = false;
-      } else {
-        document.getElementById('lastname').classList.remove('error');
-      }
-  
       //address
       if (address.trim() === '') {
         document.getElementById('address').classList.add('error');

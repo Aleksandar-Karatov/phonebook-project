@@ -10,19 +10,15 @@
 </head>
 <body>
     <div class="addNewContact">
-    <form action="/submit-form" method="post">
+    <form action="/submit-contactinfo" method="post">
         <div class="user">
             <div class="input">
                 <span class="detail">Name:</span>
-                <input type="text" id="firstname" name="firstname">
+                <input type="text" id="firstname" name="name" >
             </div>
             <div class="input">
-                <span class="detail">Surname:</span>
-                <input type="text" id="lastname" name="lastname">
-            </div>
-            <div class="input">
-                <span class="detail">Address:</span>
-                <input type="text" id="address" name="address">
+                <span class="detail">Notes:</span>
+                <input type="text" id="address" name="notes" >
             </div>
             <div class="input">
                 <span class="detail">E-mail:</span>
@@ -30,14 +26,10 @@
             </div>
             <div class="input">
                 <span class="detail">Phone number:</span>
-                <input type="text" id="phone" name="phone">
-            </div>
-            <div class="upload">
-                <span class="detail">Upload photo:</span>
-                <input type="file" name="uploaded_file">
+                <input type="text" id="phone" name="phone" >
             </div>
             <div class="button">
-                <input type="submit" value="Add">
+                <input type="submit" value="Add" >
             </div>
         </div>
     </form>

@@ -92,7 +92,8 @@ func MergeContacts(repo *repository.Repo, userID primitive.ObjectID) (*models.Co
 		return nil, errors.New("Can not find records")
 	}
 	if err == repository.ErrNoDuplicates {
-		return nil, errors.New("No contacts with this name and email")
+
+		return resp, nil
 	}
 	if err != nil {
 		return nil, errors.New("Can not merge contacts")

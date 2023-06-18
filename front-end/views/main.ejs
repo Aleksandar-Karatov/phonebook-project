@@ -18,17 +18,26 @@
         <input id = "searchContact" placeholder = "Search">
         <button class = "searchContact"> SEARCH </button>
     </div>
-    <button class ="addContact"> ADD NEW CONTACT</button>
+    
+    <a class="addContact" href="/createcontactpage">
+        <input class="addContact" type="button" value= "ADD NEW CONTACT" />
+    </a>
     </div>
+    <br>
     <div class = "menu" >
     <h1> CONTACTS </h1>
     <ul> 
         <li>
     <div id = "contactInfo"> 
         <% contactData.forEach(function(contact) { %>
-            <span > <a href="/contact?contactid=<%= contact.contactid %>"><%= contact.name %></a></span><br>
-            <br>
+            <span > 
+                <a href="/contact?contactid=<%= contact.contactid %>">
+                    <input class="removeContact" type="button" value=<%= contact.name %> />
+                </a>
+            </span>
+
         <% }); %>
+        
     </div>
 </li>
 </ul>
