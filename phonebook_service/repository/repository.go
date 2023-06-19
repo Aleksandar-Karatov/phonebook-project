@@ -149,6 +149,15 @@ func (r *Repo) DeleteContact(id primitive.ObjectID) (bool, error) {
 	filter := bson.D{
 		{"id", id},
 	}
+	if check.ImageID.Hex() != config.DEFAULT_IMAGE_ID {
+		filterimg := bson.D{
+			{"_id", check.ImageID},
+		}
+		_, err := r.Database.Collection(config.DB_COLLECTION_IMAGES).DeleteOne(r.Ctx, filterimg)
+		if err != nil {
+			return false, ErrCantDelete
+		}
+	}
 	_, err := r.Database.Collection(config.DB_COLLECTION_USERS).DeleteOne(r.Ctx, filter)
 	if err != nil {
 		return false, ErrCantDelete

@@ -1,13 +1,16 @@
-query{
-  contact(name: "Boyanna", phone:"123-456-7890", email:"boyanna@gmail.com"){
+query contact{
+  contact(name: "", phone: "0889876540", email: "", id: ""){
+    id
     name
     phones
+    notes
     email
+    imageID
   }
 }
 
 mutation{
-  createContact(id: "5", name: "Test Input", phones: ["0123-445-223"], notes:"mega gotin test", email: "randomMail@mail.bg"){
+  createContact(name: "Test Input", phones: ["0123-445-223"], notes:"mega gotin test", email: "randomMail@mail.bg"){
     id
     name
     notes
@@ -39,5 +42,36 @@ mutation{
 query{
   contacts{
     name, id, email, phones 
+  }
+}
+
+query image{
+  image(imageID:"648f4555954cccbe7e06a5f8"){
+    imageId
+    name
+    imageData
+    contentType
+  }
+}
+
+query search{
+  search(filter:"Mar"){
+    name
+    id
+    email
+    phones
+    imageID
+    notes
+  }
+}
+
+mutation merge{
+  mergeContacts(id: "64859550332db2af53e1c8ef"){
+    name
+    id
+    email
+    phones
+    imageID
+    notes
   }
 }
