@@ -130,6 +130,7 @@ func (r *Repo) UpdateContact(contact models.Contact) (*models.Contact, error) {
 	filter := bson.D{
 		{"id", contact.Id},
 	}
+	contact.ImageID = check.ImageID
 	update := bson.D{{"$set", contact}}
 
 	_, err = r.Database.Collection(config.DB_COLLECTION_USERS).UpdateOne(r.Ctx, filter, update)

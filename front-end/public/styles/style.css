@@ -20,14 +20,22 @@ body {
     flex-wrap: wrap;
     gap: 20px;
   }
+.logocontainer{
+  position: absolute;
+  display: flex;
+  
+  top:50px;
+  left: 50%;
 
-.container img {
+  margin-bottom: 2px;
+
+}
+
+.logo {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    position: absolute;
-    top: 2%;
-    left: 50%;
+    display: flex;
     transform: translateX(-50%);
 }
 
@@ -63,8 +71,7 @@ body {
 .nav {
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
-    width: 50%;
+    width: fit-content;
     height: 65px;
     border-radius: 40px;
     margin: 80px;
@@ -88,6 +95,17 @@ body {
     border: none; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
+.dropdown{
+  background-color : #fff;
+  position: absolute;
+  border-radius: 20px; 
+  padding: 5px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
 
 .searchContact {
     border-radius: 20px;
@@ -97,6 +115,7 @@ body {
     font-size: 14px;
     border: none;
     outline: none;
+    position: absolute;
     background-color: #f5f9fa;
     color: rgb(17, 16, 16);
     cursor: pointer;
@@ -105,7 +124,7 @@ body {
 
 .addContact {
     border-radius: 20px;
-    width: 120px;
+    width: fit-content;
     height: 35px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
@@ -131,6 +150,7 @@ body {
       margin: 20px;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
   
     .search {
@@ -138,6 +158,7 @@ body {
       display: flex;
       align-items: center;
       margin-bottom: 10px;
+      position: relative;
     }
   
     .search input {
@@ -154,7 +175,7 @@ body {
     .searchContact,
     .addContact {
       width: auto;
-      margin-left: 10px;
+      margin-left: 20px;
     }
   }
   
@@ -207,12 +228,16 @@ body {
   .phoneNumber {
     background-color: #fff;
     width: 400px;
-    height: 70px;
+    height: fit-content;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
+  .notes{
+    white-space: pre-line;
+  }
   
+
   .email img,
   .notes img,
   .phoneNumber img {
@@ -250,6 +275,7 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
   
+  .updateContact,
   .removeContact,
   .mergeContact {
     width: 100px;
@@ -262,6 +288,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
   
+  .updateContact:hover,
   .removeContact:hover,
   .mergeContact:hover {
     background-color: #4caf50;
@@ -347,3 +374,30 @@ body {
     margin-bottom: 10px;
   }
 
+  .dropdownbutton{
+    cursor: pointer;
+  }
+  
+  .dropdownbutton:hover {
+    background-color: #4caf50;
+    color: #fff;
+
+  }
+
+  
+  .contacts {
+    width: 100px;
+    border-radius: 20px;
+    height: 35px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    color: #4caf50;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .contacts:hover {
+    background-color: #4caf50;
+    color: #fff;
+  }

@@ -23,7 +23,11 @@
 
             <div class = "phoneNumber">
                 <img src = "images/phone-call.png">
-                <p id="number"><%= contactData.phones %>  </p>
+                <% contactData.phones.forEach(function(phone) { %>
+                    <p class="number"><%= phone %>  </p>
+        
+                <% }); %>
+                
             </div>
 
             <div class="email">
@@ -43,6 +47,9 @@
              </a>
              <a  href="/contactmerge?contactid=<%= contactData.contactid %>">
                 <input class="mergeContact" type="button" value="Merge" />
+             </a>
+             <a  href="/contactupdate?contactid=<%= contactData.contactid %>">
+                <input class="updateContact" type="button" value="Update" />
              </a>
 
         </div>

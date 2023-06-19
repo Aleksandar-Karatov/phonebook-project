@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update contact</title>
+    <link rel="stylesheet" href="./styles/style.css" > 
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="addNewContact">
+    <form action="/update-contactinfo?contactid=<%= contact.contactid %>" method="post">
+        <div class="user">
+            <div class="input">
+                <span class="detail">Name:</span>
+                <input type="text" id="firstname" name="name" >
+            </div>
+            <div class="input">
+                <span class="detail">Notes:</span>
+                <input type="text" id="address" name="notes" >
+            </div>
+            <div class="input">
+                <span class="detail">E-mail:</span>
+                <input type="text" id="email" name="email">
+            </div>
+            <div class="input">
+                <span class="detail">Phone number:</span>
+                <input type="text" id="phone" name="phone" >
+            </div>
+            <div class="button">
+                <input type="submit" value="Update" >
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

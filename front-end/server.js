@@ -1,11 +1,7 @@
-// const express = require('express');
-// const fetch = require('node-fetch');
 import express from 'express';
 import fetch from 'node-fetch';
 import url from 'url';
 import parser from 'body-parser';
-
-// const { fetchContacts } = require('../queries');
 
 const app = express();
 const port = 3000;
@@ -82,7 +78,7 @@ app.get('/createcontactpage', (req, res) => {
 
 
 app.post('/submit-contactinfo', function(req, res) {
-  console.log(req.body);
+  console.log(req.query);
   var query = `
   mutation {
       createContact(name: "` + req.body.name + `", phones: ["` + req.body.phone + `"], notes: "` + req.body.notes + `", email: "` + req.body.email + `"){
@@ -95,6 +91,21 @@ app.post('/submit-contactinfo', function(req, res) {
 
   res.redirect("/");
 });
+
+app.post("/search", (req, res) =>{
+  console.log(req.body)
+  var query = `
+  query {
+      search(filter: "`+ req.body.input +`"){
+        name
+        id
+        phones
+      }
+    }
+  `;
+  fetchSearch(query, res);
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
@@ -146,7 +157,6 @@ async function fetchContactData(query, res) {
     imageData: image.imageData,
     imageContentType: image.contentType
   }
-  
   res.render('index',{contactData});
    
   
@@ -219,6 +229,70 @@ async function mergeContacts(query, res) {
 
 
 async function createContact(res, query) {
+  const response = await fetch("http://localhost:50000/query", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+ 
+  
+}
+
+async function fetchSearch(query, res){
+  const response = await fetch("http://localhost:50000/query", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const data = await response.json();
+  console.log(data.data);
+
+  var contacts = [];
+  data.data.search.forEach(c => {
+    var contact = {
+      name: c.name,
+      id: c.id,
+      phones: c.phones
+    }
+  contacts.push(contact);
+  });
+  res.send(contacts);
+}
+
+
+app.get('/contactupdate', (req, res) => {
+  
+  var contact = {
+    contactid: req.query.contactid
+  };
+  res.render('updatecontact', {contact});
+});
+
+
+app.post('/update-contactinfo', function(req, res) {
+  console.log(req.query)
+  var query = `
+  mutation {
+      updateContact(id: "`+ req.query.contactid  +`",name: "` + req.body.name + `", phones: ["` + req.body.phone + `"], notes: "` + req.body.notes + `", email: "` + req.body.email + `"){
+        id
+      }
+    }
+  `;
+  console.log(query);
+  updateContact(res, query);
+
+  res.redirect("/");
+});
+
+async function updateContact(res, query) {
   const response = await fetch("http://localhost:50000/query", {
     method: 'POST',
     headers: {

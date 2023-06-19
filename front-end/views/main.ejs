@@ -9,38 +9,78 @@
     <script src="/index.js"></script>
 </head>
 <body>
-      
+    
 <div class = "container" >
-    <img src="images/istockphoto-1312128591-612x612.jpg">
     
     <div class = "nav">
     <div class= "search">
-        <input id = "searchContact" placeholder = "Search">
-        <button class = "searchContact"> SEARCH </button>
+        <input id = "searchContact" placeholder = "Search" name = "search" onkeyup="search()">
+        <div id="dropdown" class="dropdown"></div>
+
+            <script>
+                function search() {
+                    const input = document.getElementById('searchContact').value;
+                
+                    fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ input })
+                    })
+                    .then(response => response.json())
+                    .then(results => {
+                    const dropdown = document.getElementById('dropdown');
+                    dropdown.innerHTML = '';
+
+                    if (results.length > 0) {
+                        results.forEach(result => {
+                            const option = document.createElement('div');
+                            const inp = document.createElement('input',);
+                            inp.className = 'dropdownbutton';
+                            inp.value = result.name + " " + result.phones;
+                            option.appendChild(inp);
+                            inp.addEventListener('click', () => {
+                            redirectToResultPage(result.id);
+                            });
+                            dropdown.appendChild(option);
+                        });
+
+                        dropdown.style.display = 'block';
+
+                    
+                    } else {
+                        dropdown.style.display = 'none';
+                    }
+                    });
+                }
+                function redirectToResultPage(result) {
+                window.location.href = '/contact?contactid=' + encodeURIComponent(result);
+                }
+            </script>
     </div>
     
     <a class="addContact" href="/createcontactpage">
-        <input class="addContact" type="button" value= "ADD NEW CONTACT" />
+        <input class="addContact" type="button" value= "Add new contact" />
     </a>
     </div>
     <br>
     <div class = "menu" >
     <h1> CONTACTS </h1>
-    <ul> 
-        <li>
+
     <div id = "contactInfo"> 
         <% contactData.forEach(function(contact) { %>
             <span > 
                 <a href="/contact?contactid=<%= contact.contactid %>">
-                    <input class="removeContact" type="button" value=<%= contact.name %> />
+                    <input class="contacts" type="button" value=<%= contact.name %> />
                 </a>
             </span>
+            <br>
 
         <% }); %>
         
     </div>
-</li>
-</ul>
+
    </div>
 </div>
 
