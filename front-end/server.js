@@ -50,7 +50,6 @@ app.get('/contactdelete', (req, res) => {
   }
 ` ;
 
-  console.log(query);
   deleteContact(query, res);
   
  
@@ -65,7 +64,6 @@ app.get('/contactmerge', (req, res) => {
     }
   `;
 
-  console.log(query);
   mergeContacts(query, res);
   
  
@@ -78,7 +76,6 @@ app.get('/createcontactpage', (req, res) => {
 
 
 app.post('/submit-contactinfo', function(req, res) {
-  console.log(req.query);
   var query = `
   mutation {
       createContact(name: "` + req.body.name + `", phones: ["` + req.body.phone + `"], notes: "` + req.body.notes + `", email: "` + req.body.email + `"){
@@ -86,14 +83,12 @@ app.post('/submit-contactinfo', function(req, res) {
       }
     }
   `;
-  console.log(query);
   createContact(res, query);
 
   res.redirect("/");
 });
 
 app.post("/search", (req, res) =>{
-  console.log(req.body)
   var query = `
   query {
       search(filter: "`+ req.body.input +`"){
@@ -253,7 +248,7 @@ async function fetchSearch(query, res){
   });
 
   const data = await response.json();
-  console.log(data.data);
+  console.log(data);
 
   var contacts = [];
   data.data.search.forEach(c => {
