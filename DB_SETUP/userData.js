@@ -1,9 +1,5 @@
 const fs = require("fs");
 
-
-
-
-
 //Users
 const boyanna = {
   name: 'Boyanna',
@@ -100,9 +96,6 @@ var contacts = [boyanna, yana, aleks, dobrin,
   nevena, yavor, ivo, gabriela,
   konstantin, mariya, kristiyan, milena, 
   aleksandra, martin, mario,];
-
-
-
 
 
 //Images

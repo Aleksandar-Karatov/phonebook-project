@@ -116,7 +116,7 @@ async function fetchContactsData(query, res) {
     });
   
     const data = await response.json();
-    console.log(data.data.contacts);
+    console.log(data.data);
     const contactData = [];
     data.data.contacts.forEach(contact => {
       const c ={
