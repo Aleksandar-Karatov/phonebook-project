@@ -1,6 +1,8 @@
 const fs = require("fs");
-const imagePath = "D:\\WEBTECH\\DataImages\\profile15.jpg";
-const imageData = fs.readFileSync(imagePath); 
+
+
+
+
 
 //Users
 const boyanna = {
@@ -94,92 +96,94 @@ const mario = {
   email: 'mario@gmail.com',
 };
 
+var contacts = [boyanna, yana, aleks, dobrin, 
+  nevena, yavor, ivo, gabriela,
+  konstantin, mariya, kristiyan, milena, 
+  aleksandra, martin, mario,];
+
+
+
+
+
 //Images
 const boyannaImage = {
-  name: 'profile1.jfif',
-  data: imageData,
+  name: 'profile1.jpg',
   contentType: 'image/jpeg'
 };
 const yanaImage = {
   name: 'profile2.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 const aleksImage = {
-  name: 'profile3.jfif',
-  data: imageData,
+  name: 'profile3.jpg',
+
   contentType: 'image/jpeg'
 };
 const dobrinImage = {
   name: 'profile4.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 const nevenaImage = {
   name: 'profile5.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 const yavorImage = {
   name: 'profile6.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 const ivoImage = {
-  name: 'profile7.jpg',
-  data: imageData,
+  name: 'default.png',
   contentType: 'image/jpeg'
 };
 const gabrielaImage = {
-  name: 'profile8.jpg',
-  data: imageData,
+  name: 'default.png',
   contentType: 'image/jpeg'
 };
 const konstantinImage = {
-  name: 'profile9.jpg',
-  data: imageData,
+  name: 'default.png',
   contentType: 'image/jpeg'
 };
 const mariyaImage = {
   name: 'profile10.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 const kristiyanImage = {
-  name: 'profile11.jpg',
-  data: imageData,
+  name: 'default.png',
   contentType: 'image/jpeg'
 };
 const milenaImage = {
-  name: 'profile12.jpg',
-  data: imageData,
+  name: 'default.png',
   contentType: 'image/jpeg'
 };
 const aleksndraImage = {
   name: 'profile13.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 const martinImage = {
-  name: 'profile14.jpg',
-  data: imageData,
+  name: 'default.png',
   contentType: 'image/jpeg'
 };
 const marioImage = {
   name: 'profile15.jpg',
-  data: imageData,
   contentType: 'image/jpeg'
 };
 
-module.exports = {
-  boyanna, yana, aleks, dobrin, 
-  nevena, yavor, ivo, gabriela,
-  konstantin, mariya, kristiyan, milena, 
-  aleksandra, martin, mario, 
 
-  boyannaImage,yanaImage,aleksImage,
+var images = [ boyannaImage,yanaImage,aleksImage,
   dobrinImage,nevenaImage,yavorImage,
   ivoImage, gabrielaImage, konstantinImage,
   mariyaImage, kristiyanImage, milenaImage,
-  aleksndraImage, martinImage, marioImage
+  aleksndraImage, martinImage, marioImage];
+
+function fillImagesData(){
+  for (let index = 0; index < images.length; index++) {
+    images[index].data = fs.readFileSync("./images/" + images[index].name)
+  }
+  return images
+}
+
+
+module.exports = {
+   contacts, images,
+   fillImagesData
 };

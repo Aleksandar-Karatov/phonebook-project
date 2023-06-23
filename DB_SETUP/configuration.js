@@ -1,4 +1,4 @@
-const app = express();
+import { createUser } from "./CRUD";
 
 createUser(mario, marioImage)
     .then((createdUser) => {
@@ -8,7 +8,6 @@ createUser(mario, marioImage)
         console.error("Error creating user:", error.message);
     });
 
-getUserById("6485ac44117343ba41b74c64");
 getUserById('646b74ec5dd6e98d5e632c85')
     .then((user) => {
         console.log("User found:", user);
@@ -33,31 +32,6 @@ deleteUser("64624140630984f8cbdd2831")
         console.error("Error deleting user:", error.message);
     });
 
-app.get('/users/:id/image', async (req, res) => {
-    try {
-        const userId = req.params.id;
-
-        const user = await User.findById(userId).exec();
-
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
-
-        if (!user.image_id) {
-            return res.status(404).send('Image not found for the user');
-        }
-
-        const image = await Image.findById(user.image_id).exec();
-
-        if (!image) {
-            return res.status(404).send('Image not found');
-        }
-
-        res.set('Content-Type', image.contentType);
-
-        res.send(image.data);
-    } catch (error) {
-        console.error('Error retrieving image:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+module.exports = {
+    createUser
+};
